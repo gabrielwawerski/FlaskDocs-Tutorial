@@ -4,6 +4,7 @@ from flask import (
 from werkzeug.exceptions import abort
 from flaskr.auth import logged_in_required
 from flaskr.db import get_db
+from . import util
 
 bp = Blueprint('blog', __name__)
 
@@ -35,9 +36,9 @@ def create():
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO post (title, post, author_id)'
-                ' VALUES (?, ?, ?)',
-                (title, post, g.user['id'])
+                'INSERT INTO post (title, post, author_id, created)'
+                ' VALUES (?, ?, ?, ?)',
+                (title, post, g.user['id'], util.timestamp())
             )
             db.commit()
             return redirect(url_for('blog.index'))
@@ -121,8 +122,6 @@ def get_post_comments(post_id):
 
 @bp.route('/post/<int:id>/', methods=('POST', 'GET'))
 def display_post(id):
-    g.ftime = '%H:%M, %d-%m-%Y'
-
     if request.method == 'POST':
         comment = request.form['comment']
         error = None
@@ -135,9 +134,9 @@ def display_post(id):
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO comment (author_id, post_id, comment)'
-                ' VALUES (?, ?, ?)',
-                (g.user['id'], id, comment)
+                'INSERT INTO comment (author_id, post_id, comment, created)'
+                ' VALUES (?, ?, ?, ?)',
+                (g.user['id'], id, comment, util.timestamp())
             )
             db.commit()
 
