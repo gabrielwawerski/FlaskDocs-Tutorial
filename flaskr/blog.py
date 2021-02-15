@@ -121,6 +121,8 @@ def get_post_comments(post_id):
 
 @bp.route('/post/<int:id>/', methods=('POST', 'GET'))
 def display_post(id):
+    g.ftime = '%H:%M, %d-%m-%Y'
+
     if request.method == 'POST':
         comment = request.form['comment']
         error = None

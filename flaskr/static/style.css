@@ -3,7 +3,7 @@ body { max-width: 960px; margin: 0 auto; background: #e3dede; }
 h1, h2, h3, h4, h5, h6 { color: #377ba8; margin: 1rem 0; text-decoration: none; }
 
 a { color: #377ba8; margin: 0; padding: 0; }
-asimple { text-decoration: none; }
+.asimple { text-decoration: none; }
 hr { border: none; border-top: 1px solid slategray; }
 nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem; }
 nav h1, h2, h3, h4, h5, h6 { flex: auto; margin: 0; }
@@ -26,6 +26,6 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0 0.5rem 
 .content textarea { min-height: 12em; resize: vertical; }
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
-.col { padding: 0px; margin: 0px; }
-.row { padding: 0px; margin: 0px; }
-.container { padding: 0px; margin: 0px; }
+.col { padding: 0; margin: 0; }
+.row { padding: 0; margin: 0; }
+.container { padding: 0; margin: 0; }
