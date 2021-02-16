@@ -121,9 +121,8 @@ def get_post_comments(post_id):
     return comments
 
 
-# TODO: fix posting comments! - their timestamp is the same as post's
-@bp.route('/post/<int:post_id>/comment', methods=('POST', 'GET'))
-def write_comment(post_id):
+@bp.route('/post/<int:post_id>/', methods=('POST', 'GET'))
+def display_post(post_id):
     if request.method == 'POST':
         comment = request.form['comment']
         error = None
@@ -141,11 +140,6 @@ def write_comment(post_id):
                 (g.user['id'], post_id, comment, util.timestamp())
             )
             db.commit()
-        return render_template('writecomment.html')
-
-
-@bp.route('/post/<int:post_id>/', methods=('POST', 'GET'))
-def display_post(post_id):
     post = get_post(post_id)
     comments = get_post_comments(post_id)
     return render_template('blog/post.html', post=post, comments=comments)

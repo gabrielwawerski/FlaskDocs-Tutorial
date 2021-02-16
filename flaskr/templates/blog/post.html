@@ -15,7 +15,7 @@
     {% for comment in comments %}
     <h6>{{ comment.comment }}</h6>
     <div class="about">by <a href="{{ url_for('blog.display_profile', profile_id=g.user['id']) }}">{{ post['username'] }}</a> on
-        {{ post['created'] }}
+        {{ comment['created'] }}
     </div>
     {% if not loop.last %}
     <hr>
