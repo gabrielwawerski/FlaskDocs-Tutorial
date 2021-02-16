@@ -1,8 +1,9 @@
 def timestamp():
     from datetime import datetime
     dt = datetime.now()
-    hour, minute, second, day, month = format_date_time(dt.hour, dt.minute, dt.second, dt.day, dt.month)
-    return f"{hour}:{minute}:{second} {day}.{month}.{dt.year}"
+    hour, minute, second, day, month, year = format_date_time(dt.hour, dt.minute, dt.second, dt.day, dt.month, dt.year)
+    del dt
+    return f"{hour}:{minute}:{second} {day}.{month}.{year}"
 
 
 def format_date_time(*data):

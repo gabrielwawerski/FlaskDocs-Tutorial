@@ -82,10 +82,11 @@ def delete(id):
     return redirect(url_for('blog.index'))
 
 
-@bp.route('/profile/<int:id>/', )
-def display_profile(id):
+@bp.route('/profile/<int:profile_id>/', )
+def display_profile(profile_id):
     user = get_db().execute(
-        f"SELECT * FROM user WHERE id = {id}"
+        "SELECT * FROM user WHERE id = ?",
+        (profile_id,)
     ).fetchone()
     return render_template('blog/profile.html', user=user)
 
@@ -120,8 +121,9 @@ def get_post_comments(post_id):
     return comments
 
 
-@bp.route('/post/<int:id>/', methods=('POST', 'GET'))
-def display_post(id):
+# TODO: fix posting comments! - their timestamp is the same as post's
+@bp.route('/post/<int:post_id>/comment', methods=('POST', 'GET'))
+def write_comment(post_id):
     if request.method == 'POST':
         comment = request.form['comment']
         error = None
@@ -136,10 +138,14 @@ def display_post(id):
             db.execute(
                 'INSERT INTO comment (author_id, post_id, comment, created)'
                 ' VALUES (?, ?, ?, ?)',
-                (g.user['id'], id, comment, util.timestamp())
+                (g.user['id'], post_id, comment, util.timestamp())
             )
             db.commit()
+        return render_template('writecomment.html')
 
-    post = get_post(id)
-    comments = get_post_comments(id)
+
+@bp.route('/post/<int:post_id>/', methods=('POST', 'GET'))
+def display_post(post_id):
+    post = get_post(post_id)
+    comments = get_post_comments(post_id)
     return render_template('blog/post.html', post=post, comments=comments)

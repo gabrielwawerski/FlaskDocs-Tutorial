@@ -20,14 +20,14 @@
       <article class="post">
         <header>
           <div>
-            <h1><a href="{{ url_for('blog.display_post', id=post['id']) }}">{{ request.form['title'] or post['title'] }}</a></h1>
-            <div class="about">by <a href="{{ url_for('blog.display_profile', id=g.user['id']) }}">{{ post['username'] }}</a> on {{ post['created'] }}</div>
+            <h1><a href="{{ url_for('blog.display_post', post_id=post['id']) }}">{{ request.form['title'] or post['title'] }}</a></h1>
+            <div class="about">by <a href="{{ url_for('blog.display_profile', profile_id=g.user['id']) }}">{{ post['username'] }}</a> on {{ post['created'] }}</div>
           </div>
           {% if g.user['id'] == post['author_id'] %}
             <a class="action asimple" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
           {% endif %}
         </header>
-        <p class="body">{{ post['body'] }}</p>
+        <p class="post">{{ post['post'] }}</p>
       </article>
       {% if not loop.last %}
         <hr>
