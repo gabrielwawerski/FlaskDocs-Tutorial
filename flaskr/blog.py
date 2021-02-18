@@ -122,6 +122,7 @@ def get_post_comments(post_id):
 
 
 @bp.route('/post/<int:post_id>/', methods=('POST', 'GET'))
+@logged_in_required
 def display_post(post_id):
     if request.method == 'POST':
         comment = request.form['comment']

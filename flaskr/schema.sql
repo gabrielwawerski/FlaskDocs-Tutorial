@@ -28,3 +28,12 @@ CREATE TABLE comment (
   FOREIGN KEY (author_id) REFERENCES user (id)
   FOREIGN KEY (post_id) REFERENCES post (id)
 );
+
+CREATE TABLE likes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  post_id INTEGER NOT NULL,
+  created TEXT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user (id)
+  FOREIGN KEY (post_id) REFERENCES post (id)
+)
