@@ -55,6 +55,7 @@ def register():
         db = get_db()
         error = None
 
+		# todo: kwargs method for error: errorMsg?
         if not username:
             error = 'Username required.'
         elif not password:
