@@ -1,4 +1,4 @@
-def timestamp():
+def timestamp() -> str:
     from datetime import datetime
     dt = datetime.now()
     hour, minute, second, day, month, year = format_date_time(dt.hour, dt.minute, dt.second, dt.day, dt.month, dt.year)
@@ -6,7 +6,7 @@ def timestamp():
     return f"{hour}:{minute}:{second} {day}.{month}.{year}"
 
 
-def format_date_time(*data):
+def format_date_time(*data: int) -> tuple:
     fdata = list()
     for d in data:
         if d <= 9:

@@ -5,7 +5,6 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.db import get_db
 
-
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
@@ -55,6 +54,7 @@ def register():
         db = get_db()
         error = None
 
+        # todo: kwargs method for error: errorMsg?
         if not username:
             error = 'Username required.'
         elif not password:
@@ -66,7 +66,7 @@ def register():
         elif not age:
             error = 'Age required.'
         elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
+                'SELECT id FROM user WHERE username = ?', (username,)
         ).fetchone() is not None:
             error = f'User {username} is already registered.'
 
@@ -107,4 +107,5 @@ def logged_in_required(view):
         if g.user is None:
             return redirect(url_for('auth.login'))
         return view(**kwargs)
+
     return wrapped_view

@@ -82,7 +82,7 @@ def delete(id):
     return redirect(url_for('blog.index'))
 
 
-@bp.route('/profile/<int:profile_id>/', )
+@bp.route('/profile/<int:profile_id>/')
 def display_profile(profile_id):
     user = get_db().execute(
         "SELECT * FROM user WHERE id = ?",
@@ -91,7 +91,7 @@ def display_profile(profile_id):
     return render_template('blog/profile.html', user=user)
 
 
-def get_post(id, check_author=True):
+def get_post(id, check_author=False):
     post = get_db().execute(
         'SELECT p.id, title, post, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
